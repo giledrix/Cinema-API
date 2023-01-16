@@ -2,7 +2,7 @@ const express = require('express');
 var cors = require('cors'); // import CORS model
 var session = require('express-session'); // set up session
 const usersRouter = require('./Routers/users');
-const connectDB = require('./configs/database')
+const connectDB = require('./Configs/database')
 const mongoose = require('mongoose')
 
 var app = express();
