@@ -19,7 +19,7 @@ const getAllUsers = function () {
     });
 }
 
-const getAllusersDataFromAllSourceses = async function () {
+const getAllUsersDataFromAllSources = async function () {
     return new Promise((resolve, reject) => {
         UsersModel.find({}, async function (err, users) { // get all user data from db
             if (err) {
@@ -62,24 +62,6 @@ const getAllusersDataFromAllSourceses = async function () {
                     });
                 });
 
-
-                // ממין את המערך כך שהאלמנט הראשון יהיה היוזר שמבצע את הפעולה
-                // כאשר נפנה למקום ה 0 נדע שאני לוקח מידע על עצמי
-                // let usersDataSortedArray = [];
-                // let sess = req.session;
-
-                // usersDataArr.forEach(user => {
-                //     if (sess.name == user.name) {
-                //         usersDataSortedArray.push(user);
-                //     }
-                // });
-
-                // usersDataArr.forEach(user => {
-                //     if (sess.name != user.name) {
-                //         usersDataSortedArray.push(user);
-                //     }
-                // });
-
                 finalData.users = usersDataArr;
 
                 resolve(finalData);
@@ -104,11 +86,11 @@ const loginValidation = async function (username, password) {
 
                 if (user) { // if user is found
                     if (user.Password == password) { // check if password correct
-                        let usersDeatiles = await usersJsonDAL.getAllUsersData(); // get all users personal data (for present name)
+                        let usersDetailed = await usersJsonDAL.getAllUsersData(); // get all users personal data (for present name)
                         let userPermissions = await permissionJsonDAL.getAllPermissionsDataFromJsonFile(); // get all users permissions data
 
-                        if (usersDeatiles) { // if found
-                            let userData = usersDeatiles.users.find(x => x.id == user._id); // get specific user by id
+                        if (usersDetailed) { // if found
+                            let userData = usersDetailed.users.find(x => x.id == user._id); // get specific user by id
                             let userPermList = userPermissions.permissions.find(p => p.id == user.id) // get specific user permissions by id
                             let sessionTimeOut = userData.sessionTimeOut * 60000 // session timeout in milliseconds
 
@@ -141,8 +123,8 @@ const loginValidation = async function (username, password) {
 
                     }
                     else {
-                        console.log(user.Username + " Insert worng Password..");
-                        resolve("Password inccorect");
+                        console.log(user.Username + " Insert wrong Password..");
+                        resolve("Password incorrect");
                     }
 
                 }
@@ -158,7 +140,7 @@ const loginValidation = async function (username, password) {
 const completeRegister = async function (username, password) {
 
     return new Promise((resolve, reject) => {
-        UsersModel.find({ Username: username }, async function (err, user) { // get user from DB (by useranme)
+        UsersModel.find({ Username: username }, async function (err, user) { // get user from DB (by username)
             if (err) {
                 reject(err);
             }
@@ -263,7 +245,7 @@ const adminCreateNewUser = async function (input) {
                                     let result1, result2;
                                     try {
                                         result1 = await usersJsonDAL.writeToUserJsonFile(finalUserJson); // update in userJSON file
-                                        result2 = await permissionJsonDAL.writeTopermissionsJsonFile(finalPermissionsJson); // update data in permissonsJSON file
+                                        result2 = await permissionJsonDAL.writeToPermissionsJsonFile(finalPermissionsJson); // update data in permissionsJSON file
 
                                     }
                                     catch (err) {
@@ -345,7 +327,7 @@ const updateUserData = async function (input) {
                 let result1, result2;
                 try {
                     result1 = await usersJsonDAL.writeToUserJsonFile(finalUserJson); // update in userJSON file
-                    result2 = await permissionJsonDAL.writeTopermissionsJsonFile(finalPermissionsJson); // update data in permissonsJSON file
+                    result2 = await permissionJsonDAL.writeToPermissionsJsonFile(finalPermissionsJson); // update data in permissionsJSON file
 
                 }
                 catch (err) {
@@ -414,7 +396,7 @@ const deleteUser = async function (userID) {
                 //update changes in JSON file
                 try {
                     result1 = await usersJsonDAL.writeToUserJsonFile(userJsonFinalData);
-                    result2 = await permissionJsonDAL.writeTopermissionsJsonFile(permissionsJsonFinalData);
+                    result2 = await permissionJsonDAL.writeToPermissionsJsonFile(permissionsJsonFinalData);
                 }
                 catch (err) {
                     console.log(err);
@@ -432,4 +414,4 @@ const deleteUser = async function (userID) {
 }
 
 
-module.exports = { getAllUsers, loginValidation, completeRegister, adminCreateNewUser, updateUserData, deleteUser, getAllusersDataFromAllSourceses };
+module.exports = { getAllUsers, loginValidation, completeRegister, adminCreateNewUser, updateUserData, deleteUser, getAllUsersDataFromAllSources };

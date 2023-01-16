@@ -6,7 +6,7 @@ const usersRouter = require('./Routers/users');
 var app = express();
 app.use(session({secret : 'my-secret'}));
 
-app.use(cors()); // prevent blocks of CORS policy (block request from unknow domain)
+app.use(cors()); // prevent blocks of CORS policy (block request from unknown domain)
 
 require('./configs/database'); // run database.js on startup
 
@@ -18,4 +18,4 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', usersRouter);
 
 
-app.listen(9000, () => console.log("Server is runing and listening on port 9000...."));
+app.listen(9000, () => console.log("Server is running and listening on port 9000...."));

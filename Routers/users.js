@@ -35,7 +35,7 @@ router.route('/')
     });
   });
 
-// get alluser Data from all sources request
+// get all user Data from all sources request
 router.route('/getAllUserData')
   .get(async function (req, resp) {
 
@@ -55,7 +55,7 @@ router.route('/getAllUserData')
         }
       }
       else {
-        let users = await usersBL.getAllusersDataFromAllSourceses();
+        let users = await usersBL.getAllUsersDataFromAllSources();
         resp.status(200).send({ auth: true, message: 'User is verified', users });
       }
     });
@@ -100,19 +100,6 @@ router.route('/')
     let user = await usersBL.loginValidation(input.username, input.password)//return status
 
     if (typeof user === 'object' && user !== null) { // if user is found
-
-
-      // check if need to delete all this
-      // let sess = req.session;
-      // sess.classification = user.classification; // save classifiction in seesion for allow admin operations
-      // sess.name = user.name                   //  display user name in all pages
-      // sess.authenticated = true;              // Prevents the user from reaching unauthorized pages 
-      // sess.username = user.username;
-      // sess.userID = user.id;
-      // sess.tokenCinemaWS = user.tokenCinemaWS;
-      // sess.tokenSubscriptionWS = user.tokenSubscriptionWS;
-      // sess.cookie.expires = new Date(Date.now() + user.timeOut);
-
       return resp.json({ tokenCinemaWS: user.tokenCinemaWS, tokenSubscriptionWS: user.tokenSubscriptionWS, user: user })
     }
     else {
@@ -122,7 +109,7 @@ router.route('/')
   });
 
 
-// User complite register (set password)
+// User complete register (set password)
 router.route('/reg')
   .post(async function (req, resp) {
 

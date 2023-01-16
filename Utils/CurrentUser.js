@@ -21,7 +21,7 @@ const verifyUserToken = function (req, resp) {
 }
 
 //Check to make sure header is not undefined, if so, return Forbidden (403)
-//So this function check if token is provid to request
+//So this function check if token is provide to request
 const checkToken =  (req, res, next) =>  {
   const header = req.headers['x-access-token'];
 
