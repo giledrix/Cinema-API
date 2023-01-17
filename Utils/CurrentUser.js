@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const RSA_PRIVATE_KEY = 'secretkey';
 
+
 const verifyUserToken = function (req, resp) {
 
   const token = req.headers['x-access-token'];
