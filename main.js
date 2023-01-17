@@ -20,6 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', usersRouter);
 
+app.use(cors()); // prevent blocks of CORS policy (block request from unknown domain)
+
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => app.listen(PORT, () => console.log('Server is running and listening on port 9000..')))
     .catch((error) => console.log(error.message));
