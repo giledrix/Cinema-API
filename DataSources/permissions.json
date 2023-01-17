@@ -1,1 +1,30 @@
-{"permissions":[{"id":"6387701de4a9fc2ab7146f35","permissions":["View Subscriptions","Delete Subscriptions","Update Subscriptions","Create Subscriptions","View Movies","Update Movies","Delete Movies","Create Movies"]}]}
+{
+    "permissions": [
+        {
+            "id": "63c669d833b1671545fc8075",
+            "permissions": [
+                "View Subscriptions",
+                "Delete Subscriptions",
+                "Update Subscriptions",
+                "Create Subscriptions",
+                "View Movies",
+                "Update Movies",
+                "Delete Movies",
+                "Create Movies"
+            ]
+        },
+        {
+            "id": "63c673a77f33ad6718a1508f",
+            "permissions": [
+                "View Subscriptions",
+                "Create Subscriptions"
+            ]
+        },
+        {
+            "id": "63c674047862a84280748600",
+            "permissions": [
+                "View Movies"
+            ]
+        }
+    ]
+}

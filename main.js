@@ -4,15 +4,15 @@ var session = require('express-session'); // set up session
 const usersRouter = require('./Routers/users');
 const connectDB = require('./Configs/database')
 const mongoose = require('mongoose')
+const CONNECTION_URL = 'mongodb+srv://test_user123:test_user123@cluster0.kfrdiz3.mongodb.net/UsersDB?retryWrites=true&w=majority';
+const PORT = process.env.PORT || 9000;
 
 var app = express();
-app.use(session({secret : 'my-secret'}));
+app.use(session({ secret: 'my-secret' }));
 
 app.use(cors()); // prevent blocks of CORS policy (block request from unknown domain)
 
-connectDB();
-
-
+// connectDB();
 
 
 app.use(express.json());
@@ -20,15 +20,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', usersRouter);
 
-mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB')
-    app.listen(9000, () => console.log(`Server is running and listening on port 9000....`))
-})
+mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => app.listen(PORT, () => console.log('Server is running and listening on port 9000..')))
+    .catch((error) => console.log(error.message));
 
-mongoose.connection.on('error', err => {
-    console.log(err)
-    logEvents(`${err.no}: ${err.code}\t${err.syscall}\t${err.hostname}`, 'mongoErrLog.log')
-})
+mongoose.set('useFindAndModify', false);
+
 
 
 // app.listen(9000, () => console.log("Server is running and listening on port 9000...."));
