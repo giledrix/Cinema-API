@@ -15,6 +15,7 @@ const getAllUsersData = function () {
     });
 }
 
+
 const writeToUserJsonFile = function (obj) {
     return new Promise((resolve, reject) => {
         jFile.writeFile(filePath, obj, function (err) { // received file path , data to store , and callback function for errors
