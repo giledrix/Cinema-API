@@ -6,6 +6,7 @@ const subscriptionsWebServiceDAL = require('../DAL/subscriptionsWebServiceDAL');
 const jwt = require('jsonwebtoken');
 const RSA_PRIVATE_KEY = 'secretkey';
 
+
 const getAllUsers = function () {
     return new Promise((resolve, reject) => {
         UsersModel.find({}, function (err, users) {
